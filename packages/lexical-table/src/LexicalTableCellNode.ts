@@ -40,14 +40,24 @@ export const TableCellHeaderStates = {
   ROW: 1,
 };
 
+export const TableCellHeaderAlignment = {
+  CENTER: 'center',
+  LEFT: 'left',
+  RIGHT: 'right',
+};
+
 export type TableCellHeaderState =
   (typeof TableCellHeaderStates)[keyof typeof TableCellHeaderStates];
+
+export type TableCellHeaderAlignment =
+  (typeof TableCellHeaderAlignment)[keyof typeof TableCellHeaderAlignment];
 
 export type SerializedTableCellNode = Spread<
   {
     colSpan?: number;
     rowSpan?: number;
     headerState: TableCellHeaderState;
+    headerAligment?: TableCellHeaderAlignment;
     width?: number;
     backgroundColor?: null | string;
     verticalAlign?: string;
@@ -63,6 +73,8 @@ export class TableCellNode extends ElementNode {
   __rowSpan: number;
   /** @internal */
   __headerState: TableCellHeaderState;
+  /** @internal */
+  __headerAlign?: TableCellHeaderAlignment;
   /** @internal */
   __width?: number | undefined;
   /** @internal */
@@ -152,6 +164,9 @@ export class TableCellNode extends ElementNode {
     }
     if (isValidVerticalAlign(this.__verticalAlign)) {
       element.style.verticalAlign = this.__verticalAlign;
+    }
+    if (this.hasHeader() && this.__headerAlign) {
+      element.style.textAlign = this.__headerAlign;
     }
 
     addClassNamesToElement(
