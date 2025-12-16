@@ -1,3 +1,5 @@
+> **Fork Notice**: This is a fork of [facebook/lexical](https://github.com/facebook/lexical) maintained for use in the CerteaFiles Editor project. Custom patches may be applied to this fork. For the original project, please visit the upstream repository.
+
 <h1 align="center">
   <a href="https://lexical.dev">Lexical</a>
 </h1>
